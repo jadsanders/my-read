@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 import { Route } from 'react-router-dom'
-import SearchBooks from './SearchBooks'
-import ListBooks from './ListBooks'
-import OpenSearch from './buttons/OpenSearch'
+
+import SearchScreen from './screens/SearchScreen/SearchScreen'
+import BookshelfScreen from './screens/BookshelfScreen/BookshelfScreen'
 
 const books = [
   {
@@ -58,14 +58,13 @@ class BooksApp extends Component {
 
         <Route exact path="/" render={() => (
           <div>
-            <ListBooks books={books}/>
-            <OpenSearch />
+            <BookshelfScreen books={books}/>
           </div>
         )}/>
 
         <Route path="/search" render={() => (
           <div>
-            <SearchBooks />
+            <SearchScreen />
           </div>
         )}/>
 

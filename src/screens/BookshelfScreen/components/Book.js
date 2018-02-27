@@ -1,6 +1,6 @@
 import React from 'react'
-import './App.css'
-import BookAction from './buttons/BookAction'
+import '../../../App.css'
+import BookAction from './BookAction'
 
 function Book (props) {
   return(
