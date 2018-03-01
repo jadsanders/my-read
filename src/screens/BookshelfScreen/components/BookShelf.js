@@ -6,15 +6,18 @@ class BookShelf extends Component {
   render() {
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{this.props.status}</h2>
+        <h2 className="bookshelf-title">{this.props.shelf}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
             { this.props.books.map((b) =>
-              <li key={b.title}>
+              <li key={b.id}>
                 <Book
+                  id={b.id}
                   title={b.title}
-                  author={b.author}
-                  cover={b.cover}
+                  authors={b.authors}
+                  cover={b.imageLinks.thumbnail}
+                  shelf={b.shelf}
+                  changeShelf={this.props.changeShelf}
                 />
               </li>
             )}

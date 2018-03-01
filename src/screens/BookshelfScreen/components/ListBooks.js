@@ -14,9 +14,21 @@ class ListBooks extends Component {
 
         <div className="list-books-content">
           <div>
-            <BookShelf books={this.props.books.filter((b) => b.status === "currentlyReading")} status="Currently Reading"/>
-            <BookShelf books={this.props.books.filter((b) => b.status === "wantToRead")} status="Want to Read"/>
-            <BookShelf books={this.props.books.filter((b) => b.status === "read")} status="Read"/>
+            <BookShelf
+              books={this.props.books.filter((b) => b.shelf === "currentlyReading")}
+              shelf="Currently Reading"
+              changeShelf={this.props.changeShelf}
+            />
+            <BookShelf
+              books={this.props.books.filter((b) => b.shelf === "wantToRead")}
+              shelf="Want to Read"
+              changeShelf={this.props.changeShelf}
+            />
+            <BookShelf
+              books={this.props.books.filter((b) => b.shelf === "read")}
+              shelf="Read"
+              changeShelf={this.props.changeShelf}
+            />
           </div>
         </div>
 
