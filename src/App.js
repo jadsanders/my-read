@@ -19,20 +19,15 @@ class BooksApp extends Component {
     })
   }
 
-  changeShelf = (book) => {
+  changeShelf = (bookId, newShelf) => {
     this.setState((state) => ({
 
     }))
-    console.log(book)
+    console.log(bookId, newShelf)
   }
 
 
-
-
   render() {
-
-    console.log(this.state)
-
     return (
       <div className="app">
 

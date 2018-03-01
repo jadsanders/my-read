@@ -7,7 +7,12 @@ function Book (props) {
     <div className="book">
       <div className="book-top">
         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: "url("+props.cover+")" }}></div>
-        <BookAction bookId={props.id} shelf={props.shelf} changeShelf={props.changeShelf} title={props.title}/>
+        <BookAction
+          bookId={props.id}
+          shelf={props.shelf}
+          changeShelf={props.changeShelf}
+          title={props.title}
+        />
       </div>
       <div className="book-title">{props.title}</div>
         {props.authors.map((author) =>
