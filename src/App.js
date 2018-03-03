@@ -24,13 +24,18 @@ class BooksApp extends Component {
 
   changeShelf = (bookId, oldShelf, newShelf) => {
     if (oldShelf === "none") {
+      this.setState((state) => ({
+        searchResults: this.state.searchResults.filter((result) => result.id !== bookId)
+      }))
+
       BooksAPI.get(bookId).then((book) => {
         book.shelf = newShelf
-        this.setState({
+        this.setState((state) => ({
           books: [...this.state.books, book]
-        })
+        }))
         BooksAPI.update(book, newShelf)
       })
+
     } else {
       this.state.books.map((book) => {
         if (book.id === bookId) {
@@ -47,36 +52,24 @@ class BooksApp extends Component {
 
   searchBooks = (query) => {
     if (query) {
-
       BooksAPI.search(query).then((results) => {
-
-        const alreadyInSelf = this.state.books.map((book) => book.id)
-
-        const filteredUndefined = results.filter((result) =>
-              result.imageLinks !== undefined
-              && result.authors !== undefined
-              && result.id !== alreadyInSelf)
-
-
-              console.log(alreadyInSelf)
-
-
-
-
-
-              //here needs to go the filter for already in shelf books
-
-
-        this.setState({
-          searchResults: filteredUndefined
-        })
+        if (results.error) {
+          this.setState({
+            searchResults: []
+          })
+        } else {
+          this.setState({
+            searchResults: results.filter((result) =>
+                           result.imageLinks !== undefined
+                           && result.authors !== undefined
+                           && !this.state.books.map((book) => book.id).includes(result.id))
+          })
+        }
       })
-
     } else {
       this.setState({
         searchResults: []
       })
-      console.log("no user input")
     }
   }
 
@@ -85,7 +78,6 @@ class BooksApp extends Component {
       searchResults: []
     })
   }
-
 
   render() {
     return (
