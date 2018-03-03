@@ -1,14 +1,24 @@
 import React, { Component } from 'react'
 import '../../../App.css'
+import Book from '../../BookshelfScreen/components/Book'
 
 class SearchResults extends Component {
   render() {
     return (
       <div className="search-books-results">
         <ol className="books-grid">
-          <li>I'm the first result</li>
-          <li>I'm the second result</li>
-          <li>I'm the third result</li>
+          {this.props.searchResults.map((result) =>
+            <li key={result.id}>
+              <Book
+                id={result.id}
+                title={result.title}
+                authors={result.authors}
+                cover={result.imageLinks.thumbnail}
+                changeShelf={this.props.changeShelf}
+                shelf="none"
+              />
+            </li>
+          )}
         </ol>
       </div>
     )

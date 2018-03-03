@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import '../../../App.css'
 
+
 class BookAction extends Component {
 
   handleChange = (event) => {
-    this.props.changeShelf(this.props.bookId, event.target.value)
+    this.props.changeShelf(this.props.bookId, this.props.shelf, event.target.value)
   }
 
   render () {

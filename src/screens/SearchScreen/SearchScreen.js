@@ -8,8 +8,13 @@ class SearchScreen extends Component {
   render() {
     return (
       <div className="search-books">
-        <SearchBar />
-        <SearchResults />
+        <SearchBar
+          searchBooks={this.props.searchBooks}
+        />
+        <SearchResults
+          searchResults={this.props.searchResults}
+          changeShelf={this.props.changeShelf}
+        />
       </div>
     )
   }

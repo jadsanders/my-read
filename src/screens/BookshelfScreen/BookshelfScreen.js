@@ -5,7 +5,7 @@ import OpenSearch from './components/OpenSearch'
 const BookshelfScreen = (props) => (
   <div>
     <ListBooks books={props.books} changeShelf={props.changeShelf}/>
-    <OpenSearch />
+    <OpenSearch clearSearch={props.clearSearch}/>
   </div>
 )
 

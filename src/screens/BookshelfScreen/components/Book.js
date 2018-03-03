@@ -11,17 +11,20 @@ function Book (props) {
           bookId={props.id}
           shelf={props.shelf}
           changeShelf={props.changeShelf}
-          title={props.title}
         />
       </div>
-      <div className="book-title">{props.title}</div>
-        {props.authors.map((author) =>
-          <div
-            key={author}
-            className="book-authors">
-            {author}
-          </div>
-        )}
+
+      <div className="book-title">
+        {props.title}
+      </div>
+
+      {props.authors.map((author) =>
+        <div
+          key={author}
+          className="book-authors">
+          {author}
+        </div>
+      )}
     </div>
   )
 }
