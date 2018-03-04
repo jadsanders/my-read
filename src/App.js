@@ -24,9 +24,6 @@ class BooksApp extends Component {
 
   changeShelf = (bookId, oldShelf, newShelf) => {
     if (oldShelf === "none") {
-      this.setState((state) => ({
-        searchResults: this.state.searchResults.filter((result) => result.id !== bookId)
-      }))
 
       BooksAPI.get(bookId).then((book) => {
         book.shelf = newShelf
@@ -58,11 +55,30 @@ class BooksApp extends Component {
             searchResults: []
           })
         } else {
+
+          const filteredResults = results.filter((result) =>
+                                  result.imageLinks !== undefined
+                                  && result.authors !== undefined)
+
+          //here goes the logic for the shelf of search results
+
+          const updatedResults = filteredResults.map((result) => {
+            this.state.books.map((book) => {
+              if (result.id === book.id) {
+                result.shelf = book.shelf
+              } else {
+                result.shelf = "none"
+              }
+              return result
+            })
+            return result
+          })
+
+          //here goes the logic for the shelf of search results
+
+
           this.setState({
-            searchResults: results.filter((result) =>
-                           result.imageLinks !== undefined
-                           && result.authors !== undefined
-                           && !this.state.books.map((book) => book.id).includes(result.id))
+            searchResults: updatedResults
           })
         }
       })
@@ -96,6 +112,7 @@ class BooksApp extends Component {
         <Route path="/search" render={() => (
           <div>
             <SearchScreen
+              books={this.state.books}
               searchBooks={this.searchBooks}
               searchResults={this.state.searchResults}
               changeShelf={this.changeShelf}

@@ -1,0 +1,50 @@
+changeShelf = (bookId, oldShelf, newShelf) => {
+  if (oldShelf === "none") {
+    this.setState((state) => ({
+      searchResults: this.state.searchResults.filter((result) => result.id !== bookId)
+    }))
+
+    BooksAPI.get(bookId).then((book) => {
+      book.shelf = newShelf
+      this.setState((state) => ({
+        books: [...this.state.books, book]
+      }))
+      BooksAPI.update(book, newShelf)
+    })
+
+  } else {
+    this.state.books.map((book) => {
+      if (book.id === bookId) {
+        book.shelf = newShelf
+        BooksAPI.update(book, newShelf)
+      }
+      return this.state.books;
+    })
+    this.setState((state) => ({
+      books: state.books.filter((b) => b.shelf !== "none")
+    }))
+  }
+}
+
+searchBooks = (query) => {
+  if (query) {
+    BooksAPI.search(query).then((results) => {
+      if (results.error) {
+        this.setState({
+          searchResults: []
+        })
+      } else {
+        this.setState({
+          searchResults: results.filter((result) =>
+                         result.imageLinks !== undefined
+                         && result.authors !== undefined
+                         && !this.state.books.map((book) => book.id).includes(result.id))
+        })
+      }
+    })
+  } else {
+    this.setState({
+      searchResults: []
+    })
+  }
+}
