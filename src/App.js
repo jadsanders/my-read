@@ -22,6 +22,9 @@ class BooksApp extends Component {
     })
   }
 
+
+
+
   changeShelf = (bookId, oldShelf, newShelf) => {
     if (oldShelf === "none") {
 
@@ -56,18 +59,17 @@ class BooksApp extends Component {
           })
         } else {
 
-          const filteredResults = results.filter((result) =>
+          let filteredResults = results.filter((result) =>
                                   result.imageLinks !== undefined
                                   && result.authors !== undefined)
 
           //here goes the logic for the shelf of search results
 
           const updatedResults = filteredResults.map((result) => {
+            result.shelf = "none"
             this.state.books.map((book) => {
               if (result.id === book.id) {
                 result.shelf = book.shelf
-              } else {
-                result.shelf = "none"
               }
               return result
             })
@@ -112,7 +114,6 @@ class BooksApp extends Component {
         <Route path="/search" render={() => (
           <div>
             <SearchScreen
-              books={this.state.books}
               searchBooks={this.searchBooks}
               searchResults={this.state.searchResults}
               changeShelf={this.changeShelf}

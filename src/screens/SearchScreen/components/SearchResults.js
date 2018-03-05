@@ -15,7 +15,7 @@ class SearchResults extends Component {
                 authors={result.authors}
                 cover={result.imageLinks.thumbnail}
                 changeShelf={this.props.changeShelf}
-                shelf={this.props.searchResults.shelf}
+                shelf={result.shelf}
               />
             </li>
           )}

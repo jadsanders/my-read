@@ -1,8 +1,5 @@
 changeShelf = (bookId, oldShelf, newShelf) => {
   if (oldShelf === "none") {
-    this.setState((state) => ({
-      searchResults: this.state.searchResults.filter((result) => result.id !== bookId)
-    }))
 
     BooksAPI.get(bookId).then((book) => {
       book.shelf = newShelf
@@ -26,6 +23,14 @@ changeShelf = (bookId, oldShelf, newShelf) => {
   }
 }
 
+getBookByIdOrDefault = (id, defaultBook) => {
+  let r = this.state.books.find(item => item.id === id)
+  defaultBook.shelf = "none"
+  return r? r: defaultBook
+}
+
+
+
 searchBooks = (query) => {
   if (query) {
     BooksAPI.search(query).then((results) => {
@@ -34,11 +39,12 @@ searchBooks = (query) => {
           searchResults: []
         })
       } else {
+        let filteredResults = results.filter((result) =>
+                                result.imageLinks !== undefined
+                                && result.authors !== undefined)
+
         this.setState({
-          searchResults: results.filter((result) =>
-                         result.imageLinks !== undefined
-                         && result.authors !== undefined
-                         && !this.state.books.map((book) => book.id).includes(result.id))
+          searchResults: filteredResults.map(result => this.getBookByIdOrDefault(result.id, result))
         })
       }
     })
